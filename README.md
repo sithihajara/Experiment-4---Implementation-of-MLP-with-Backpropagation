@@ -118,7 +118,74 @@ Normalize our dataset.
 8. Finally, call the functions confusion_matrix(), and the classification_report() in order to evaluate the performance of our classifier.
 
 ## PROGRAM 
+```
+Developed by: Sithi hajara I
+Reg. No: 212221230102
+```
+```
 
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+data=pd.read_csv("/content/IRIS (1).csv")
+data.head()
+
+name=["sepal_length","sepal_width","petal_length","petal_width"]
+x=data.iloc[:,0:4]
+y=data.select_dtypes(include=[object])
+x.head()
+y.head()
+
+from sklearn import preprocessing
+label_encoder=preprocessing.LabelEncoder()
+data['species']=label_encoder.fit_transform(data['species'])
+data['species'].unique()
+
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.20)
+from sklearn.preprocessing import StandardScaler
+scaler=StandardScaler()
+scaler.fit(x_train)
+x_train=scaler.transform(x_train)
+x_test=scaler.transform(x_test)
+
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.neural_network import MLPClassifier
+mlp=MLPClassifier(hidden_layer_sizes=(10,10,10),max_iter=1000)
+mlp.fit(x_train,y_train.values.ravel())
+predictions=mlp.predict(x_test)
+print(predictions)
+
+print(confusion_matrix(y_test,predictions))
+print(classification_report(y_test,predictions))
+```
 ## OUTPUT 
+###Reading Dataset
+<img width="419" alt="200033851-4ba9e8dd-4e21-452a-9e37-f315761a9645" src="https://user-images.githubusercontent.com/94219582/201344514-345facbf-bf1d-4d16-beda-bcaa2a3b3bdb.png">
+###First five values of X
+<img width="340" alt="200033968-171fadba-c604-4e2d-92e5-aa2abcb7ca7f" src="https://user-images.githubusercontent.com/94219582/201345071-9887364c-ce32-483a-8789-a939f80f07a2.png">
+
+###First five values of Y
+<img width="190" alt="200034034-45a1d328-0200-4344-a976-f02c519b642f" src="https://user-images.githubusercontent.com/94219582/201345093-18c8c556-0a52-4231-8aa4-8da6e054730f.png">
+
+###Unique values in Y
+<img width="299" alt="200034091-29f9defc-519e-4afd-9403-395cf8bf76ad" src="https://user-images.githubusercontent.com/94219582/201345234-eba45d62-b35b-44d0-ad94-8ebf9811caf9.png">
+
+###Transforming Categorical into numerical values for Y
+<img width="432" alt="200034162-860fcc7a-87de-4cf8-aa91-9c648f590c1f" src="https://user-images.githubusercontent.com/94219582/201345264-7e27593b-4178-4633-9de3-9d66f1c37588.png">
+
+###Predictions
+<img width="365" alt="200034256-f283a887-44ba-492d-9f98-b03b1d61d072" src="https://user-images.githubusercontent.com/94219582/201345305-ac8c0eba-aad9-49ce-ab8e-99c20e82a215.png">
+
+###Accuracy
+<img width="32" alt="200034371-7b7a8003-2a56-4b34-adc2-a3ae19605516" src="https://user-images.githubusercontent.com/94219582/201345347-3de8972b-9687-4872-a4b6-de746281796d.png">
+
+###Confusion Matrix
+<img width="86" alt="200034461-fc393029-8791-490b-ad09-9a64f6fe09a5" src="https://user-images.githubusercontent.com/94219582/201345440-319b362f-8569-4d22-af96-23ee47320dcf.png">
+
+###Classification Report
+<img width="347" alt="200034497-4963bd1a-860b-45c2-a347-de7c9a3f86d7" src="https://user-images.githubusercontent.com/94219582/201345470-aa90520c-985c-44d0-a381-d3052d1952ce.png">
 
 ## RESULT
+Thus a Multilayer Perceptron with Backpropagation is implemented for Multi classification
+
